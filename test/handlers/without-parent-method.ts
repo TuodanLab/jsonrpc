@@ -1,14 +1,21 @@
-import { RpcHandler, RpcId, RpcMethod, RpcMethodHandler, RpcPayload, RpcVersion } from '../../src';
+import {
+  RpcHandler,
+  RpcId,
+  RpcMethod,
+  RpcMethodHandler,
+  RpcPayload,
+  RpcVersion,
+} from '../../src';
 
-@RpcHandler()
+@RpcPackage()
 export class WithoutParentMethod {
-    @RpcMethodHandler('withoutParentMethod')
-    public async subMethod(
-        @RpcPayload() payload: any,
-        @RpcVersion() version: string,
-        @RpcMethod() method: string,
-        @RpcId() id: any,
-    ) {
-        return 'withoutParentMethod';
-    }
+  @Rpc('withoutParentMethod')
+  public async subMethod(
+    @RpcPayload() payload: any,
+    @RpcVersion() version: string,
+    @RpcMethod() method: string,
+    @RpcId() id: any,
+  ) {
+    return 'withoutParentMethod';
+  }
 }

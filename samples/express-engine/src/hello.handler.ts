@@ -1,7 +1,7 @@
 import { AppService } from './app.service';
 import { IRpcHandler, RpcHandler } from '@tuodan/jsonrpc';
 
-@RpcHandler({ method: 'hello' })
+@RpcPackage({ method: 'hello' })
 export class HelloHandler implements IRpcHandler<any> {
   constructor(private readonly appService: AppService) {}
 

@@ -52,7 +52,7 @@ import {
   RpcHandler,
 } from '@tuodan/jsonrpc';
 
-@RpcHandler({
+@RpcPackage({
   method: 'test',
 })
 export class TestHandler implements IRpcHandler<Payload> {
@@ -99,11 +99,11 @@ import {
   RpcHandler,
 } from '@tuodan/jsonrpc';
 
-@RpcHandler({
+@RpcPackage({
   method: 'contact',
 })
 export class ContactHandler {
-  @RpcMethodHandler('add')
+  @Rpc('add')
   public async add(
     @RpcPayload() payload: Payload,
     @RpcVersion() version: string,
@@ -113,7 +113,7 @@ export class ContactHandler {
     return payload;
   }
 
-  @RpcMethodHandler('delete')
+  @Rpc('delete')
   public async delete(
     @RpcPayload() payload: Payload,
     @RpcVersion() version: string,
@@ -157,52 +157,3 @@ curl -X POST "http://localhost:3000/rpc" -H "accept: application/json" -H "Conte
 ### Samples
 
 See examples in samples folder
-
-### Changelog:
-
-`7.6.0`
-
-- NestJS 7.3.\* ( breaking change )
-- typescript 3.9.7 ( breaking change )
-- use DiscoveryModule
-
-`7.5.0`
-
-- add multiple RPC handlers for class
-- NestJS 7.2.\*
-
-`7.4.0`
-
-- fix types for `JsonRpcModule` async options
-- export `JSON_RPC_OPTIONS`.  
-  You can inject rpc config:  
-  `@Inject(JSON_RPC_OPTIONS) private config: JsonRpcConfig`
-
-`7.3.2`
-
-- decrease bundle size
-
-`7.3.0`
-
-- allow response object
-- add custom headers
-
-`7.2.0`
-
-- add injection scopes ( REQUEST / TRANSIENT ) to JSON RPC handlers
-- add logging register handlers
-- add injection scopes sample
-
-`7.1.1`
-
-- add express engine example
-
-`7.1.0`
-
-- add support fastify adapter
-
-`7.0.0`
-
-- support nestjs 7.0.0
-- fix types
-- add to decorators ExecutionContext ( breaking change )

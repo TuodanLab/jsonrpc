@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { users } from './users';
 import { NotFoundException } from '@nestjs/common';
 
-@RpcHandler({ method: 'signin' })
+@RpcPackage({ method: 'signin' })
 export class SignInHandler implements IRpcHandler<any> {
   constructor(private jwt: JwtService) {}
 
