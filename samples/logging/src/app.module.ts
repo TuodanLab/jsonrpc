@@ -4,7 +4,7 @@ import {
   JsonRpcModule,
   JsonRpcConfig,
   JSON_RPC_OPTIONS,
-} from '@jashkasoft/nestjs-json-rpc';
+} from '@tuodan/jsonrpc';
 import { HelloHandler } from './hello.handler';
 import { RpcLoggingMiddleware } from './rpc-logging.middleware';
 

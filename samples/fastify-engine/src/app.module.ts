@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
-import { JsonRpcModule } from '@jashkasoft/nestjs-json-rpc';
+import { JsonRpcModule } from '@tuodan/jsonrpc';
 import { HelloHandler } from './hello.handler';
 
 @Module({

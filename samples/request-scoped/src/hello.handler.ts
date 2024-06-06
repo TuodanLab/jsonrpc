@@ -1,5 +1,5 @@
 import { AppService } from './app.service';
-import { IRpcHandler, RpcHandler } from '@jashkasoft/nestjs-json-rpc';
+import { IRpcHandler, RpcHandler } from '@tuodan/jsonrpc';
 import { Logger } from '@nestjs/common';
 
 @RpcHandler({ method: 'hello' })

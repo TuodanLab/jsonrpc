@@ -1,5 +1,5 @@
 import { AppService } from './app.service';
-import { RpcMethodHandler, RpcHandler } from '@jashkasoft/nestjs-json-rpc';
+import { RpcMethodHandler, RpcHandler } from '@tuodan/jsonrpc';
 
 @RpcHandler({ method: 'prefix' })
 export class HelloHandler {

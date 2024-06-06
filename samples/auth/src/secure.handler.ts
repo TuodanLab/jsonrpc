@@ -1,4 +1,4 @@
-import { RpcHandler, IRpcHandler } from '@jashkasoft/nestjs-json-rpc';
+import { RpcHandler, IRpcHandler } from '@tuodan/jsonrpc';
 import { UseGuards } from '@nestjs/common';
 import { RPCGuard } from './rpc.guard';
 
