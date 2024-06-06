@@ -1,6 +1,6 @@
 {
   "name": "@tuodan/jsonrpc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JSON RPC module for NestJS framework",
   "author": "xavier",
   "main": "index.js",
@@ -9,11 +9,11 @@
   "files": [
     "package.json",
     "README.md",
-    "dist/**/*",
+    "**/*",
     "LICENSE"
   ],
   "scripts": {
-    "publish": "nest build && cp package.json README.md LICENSE ./dist && cd ./dist && npm publish",
+    "release": "nest build && cp package.json README.md LICENSE ./dist && cd ./dist && npm publish",
     "build": "nest build",
     "format": "prettier \"src/**/*.ts\" --ignore-path ./.prettierignore --write",
     "test": "jest",
