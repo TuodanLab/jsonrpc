@@ -13,7 +13,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "publish": "cp package.json && cp README.md && cp LICENSE && cp -r dist/ ../jsonrpc && cd ../jsonrpc && npm publish",
+    "publish": "nest build && cp package.json README.md LICENSE ./dist && npm publish",
     "build": "nest build",
     "format": "prettier \"src/**/*.ts\" --ignore-path ./.prettierignore --write",
     "test": "jest",
@@ -67,5 +67,9 @@
   "dependencies": {
     "@tuodanlab/logger": "^1.0.1",
     "lodash": "^4.17.21"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
