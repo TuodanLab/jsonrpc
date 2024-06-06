@@ -9,23 +9,22 @@ import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
-      JsonRpcModule.forRoot({
-        path: '/rpc',
-      }),
-      PassportModule.register({ defaultStrategy: 'jwt', property: 'user', session: false }),
-      JwtModule.register({
-          secret: 'secret',
-          signOptions: {
-              expiresIn: '2h',
-          },
-      }),
+    JsonRpcModule.forRoot({
+      path: '/rpc',
+    }),
+    PassportModule.register({
+      defaultStrategy: 'jwt',
+      property: 'user',
+      session: false,
+    }),
+    JwtModule.register({
+      secret: 'secret',
+      signOptions: {
+        expiresIn: '2h',
+      },
+    }),
   ],
   controllers: [],
-  providers: [
-      AppService,
-      SignInHandler,
-      SecureHandler,
-      JwtStrategy,
-  ],
+  providers: [AppService, SignInHandler, SecureHandler, JwtStrategy],
 })
 export class AppModule {}

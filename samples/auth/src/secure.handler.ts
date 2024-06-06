@@ -4,8 +4,8 @@ import { RPCGuard } from './rpc.guard';
 
 @RpcHandler({ method: 'secure' })
 export class SecureHandler implements IRpcHandler<any> {
-    @UseGuards(RPCGuard)
-    public invoke() {
-        return 'secure';
-    }
+  @UseGuards(RPCGuard)
+  public invoke() {
+    return 'secure';
+  }
 }

@@ -3,11 +3,12 @@ import { HttpServer, Type } from '@nestjs/common/interfaces';
 import { Resolver } from '@nestjs/core/router/interfaces/resolver.interface';
 import { ApplicationConfig, NestContainer } from '@nestjs/core';
 import { Injector } from '@nestjs/core/injector/injector';
-import { JsonRpcConfig, RpcMethodHandler } from './interfaces';
+import { RpcMethodHandler } from './interfaces';
 import { JsonRpcExplorer } from './jsonrpc.explorer';
 import { RouterProxyCallback } from '@nestjs/core/router/router-proxy';
 import { RpcCallbackProxy } from './rpc.callback.proxy';
 import { ProxyCallback } from './types';
+import { logger } from '@tuodanlab/logger';
 
 export const RPC_MAPPING_MESSAGE = (method: string) =>
   `JsonRpc registered method: ${method}`;

@@ -5,14 +5,11 @@ import { HelloHandler } from './hello.handler';
 
 @Module({
   imports: [
-      JsonRpcModule.forRoot({
-        path: '/rpc',
-      }),
+    JsonRpcModule.forRoot({
+      path: '/rpc',
+    }),
   ],
   controllers: [],
-  providers: [
-      AppService,
-      HelloHandler,
-  ],
+  providers: [AppService, HelloHandler],
 })
 export class AppModule {}
