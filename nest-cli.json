@@ -1,5 +1,11 @@
 {
   "language": "ts",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "typeCheck": true,
+    "builder": "swc",
+    "deleteOutDir": true,
+    "tsConfigPath": "tsconfig.build.json"
+  }
 }
