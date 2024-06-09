@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@tuodanlab/logger':
-        specifier: ^1.0.1
-        version: 1.0.1
+      '@tuodan/logger':
+        specifier: ^1.0.5
+        version: 1.0.5
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -45,6 +45,9 @@ importers:
       '@types/jest':
         specifier: 26.0.9
         version: 26.0.9
+      '@types/lodash':
+        specifier: ^4.17.5
+        version: 4.17.5
       '@types/node':
         specifier: ^18.11.18
         version: 18.19.34
@@ -619,8 +622,8 @@ packages:
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  '@tuodanlab/logger@1.0.1':
-    resolution: {integrity: sha512-WRqcrO7NbWiCZAvX4JihJEVKmVI/Gj0ek/Dqvd9j0yLy+W6TEdmq0XyoWsiGL5pbwSWiobICBaaHyTJRBgxchg==}
+  '@tuodan/logger@1.0.5':
+    resolution: {integrity: sha512-fZQrF5qIvDpKncAEeqkatlLlGwHIx+AH6A7+dwu6lFBZBaxQkPY+qXpvs5+DI4B+CDQGaHMmcBepHuBLW8L/UA==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -690,6 +693,9 @@ packages:
 
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
+
+  '@types/lodash@4.17.5':
+    resolution: {integrity: sha512-MBIOHVZqVqgfro1euRDWX7OO0fBVUUMrN6Pwm8LQsz8cWhEpihlvR70ENj3f40j58TNxZaWv2ndSkInykNBBJw==}
 
   '@types/methods@1.1.4':
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
@@ -3682,7 +3688,7 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@tuodanlab/logger@1.0.1':
+  '@tuodan/logger@1.0.5':
     dependencies:
       lodash: 4.17.21
 
@@ -3784,6 +3790,8 @@ snapshots:
   '@types/keyv@3.1.4':
     dependencies:
       '@types/node': 18.19.34
+
+  '@types/lodash@4.17.5': {}
 
   '@types/methods@1.1.4': {}
 

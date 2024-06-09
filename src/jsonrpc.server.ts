@@ -14,9 +14,12 @@ import {
   RpcResultInterface,
 } from './interfaces';
 import { ProxyCallback, ResponseBatch, RpcRequest, RpcResponse } from './types';
+import { logger } from '@tuodan/logger';
 
 type TRequest = any;
 type TResponse = any;
+export const RPC_REGISTERED_MESSAGE = (path: string) =>
+  `Jsonrpc server on path: ${path}`;
 
 @Injectable()
 export class JsonRpcServer {
@@ -28,7 +31,7 @@ export class JsonRpcServer {
 
   public run(handlers: Map<string, ProxyCallback>, config: JsonRpcConfig) {
     this.handlers = handlers;
-
+    logger.info(RPC_REGISTERED_MESSAGE(config.path));
     this.httpAdapterHost.httpAdapter.post(
       config.path,
       this.onRequest.bind(this),
@@ -38,7 +41,6 @@ export class JsonRpcServer {
   private onRequest(request: TRequest, response: TResponse, next: () => void) {
     if (Array.isArray(request.body)) {
       this.batchRequest(request, response, next);
-
       return;
     }
 
@@ -205,7 +207,6 @@ export class JsonRpcServer {
     if (isValidStructure) {
       return;
     }
-
     throw new RpcInvalidRequestException();
   }
 
@@ -214,11 +215,9 @@ export class JsonRpcServer {
     if (type === 'undefined') {
       return true;
     }
-
     if (type === 'number' && Number.isInteger(id)) {
       return true;
     }
-
     return type === 'string' || id === null;
   }
 }

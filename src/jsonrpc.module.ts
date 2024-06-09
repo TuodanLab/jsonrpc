@@ -24,9 +24,7 @@ import { JsonRpcExplorer } from './jsonrpc.explorer';
 
 export const JSON_RPC_OPTIONS = '__JSON_RPC_OPTIONS__';
 
-@Module({
-  imports: [],
-})
+@Module({})
 export class JsonRpcModule implements OnModuleInit {
   constructor(
     private rpcServer: JsonRpcServer,
