@@ -19,7 +19,7 @@ import { logger } from '@tuodan/logger';
 type TRequest = any;
 type TResponse = any;
 export const RPC_REGISTERED_MESSAGE = (path: string) =>
-  `Jsonrpc server on path: ${path}`;
+  `JsonRpcModule {${path}}`;
 
 @Injectable()
 export class JsonRpcServer {

@@ -9,8 +9,7 @@ import { RouterProxyCallback } from '@nestjs/core/router/router-proxy';
 import { RpcCallbackProxy } from './rpc.callback.proxy';
 import { ProxyCallback } from './types';
 import { logger } from '@tuodan/logger';
-export const RPC_MAPPING_MESSAGE = (method: string) =>
-  `Jsonrpc registered method: ${method}`;
+export const RPC_MAPPING_MESSAGE = (method: string) => `Mapped {${method}} rpc`;
 
 export interface RpcProxyHandler {
   proxy: ProxyCallback;
