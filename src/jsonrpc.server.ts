@@ -23,8 +23,8 @@ export const RPC_REGISTERED_MESSAGE = (path: string) =>
 
 @Injectable()
 export class JsonRpcServer {
-  private needKeys = ['jsonrpc', 'method'];
-  private ignoreKeys = ['params', 'id'];
+  private needKeys = ['jsonrpc', 'method', 'id'];
+  private ignoreKeys = ['params'];
   private handlers: Map<string, ProxyCallback>;
 
   constructor(private httpAdapterHost: HttpAdapterHost) {}
@@ -210,14 +210,14 @@ export class JsonRpcServer {
     throw new RpcInvalidRequestException();
   }
 
-  private isValidIdType(id: undefined | number | string): boolean {
-    const type = typeof id;
-    if (type === 'undefined') {
-      return true;
+  private isValidIdType(id: number | string): boolean {
+    if (!id) {
+      return false;
     }
+    const type = typeof id;
     if (type === 'number' && Number.isInteger(id)) {
       return true;
     }
-    return type === 'string' || id === null;
+    return type === 'string';
   }
 }

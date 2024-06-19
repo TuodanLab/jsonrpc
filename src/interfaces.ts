@@ -10,13 +10,13 @@ export interface RpcErrorInterface {
   jsonrpc: string;
   error?: any;
   method?: string;
-  id?: number | string | null;
+  id: number | string;
 }
 
 export interface RpcRequestInterface {
   jsonrpc: string;
   params?: any;
-  id?: number | string | null;
+  id: number | string;
   method: string;
 }
 
@@ -24,7 +24,7 @@ export interface RpcResultInterface {
   jsonrpc: string;
   result?: any;
   method?: string;
-  id?: number | string | null;
+  id: number | string;
 }
 
 export interface JsonRpcConfig {
