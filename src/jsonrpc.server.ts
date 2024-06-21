@@ -134,7 +134,12 @@ export class JsonRpcServer {
       return null;
     }
     logger.error(result);
-    return this.wrapRPCError(body, result);
+    if (result instanceof RpcException) {
+      return this.wrapRPCError(body, result);
+    }
+    if (result instanceof Error) {
+      return this.wrapRPCError(body, new RpcException(result.message));
+    }
   }
 
   private resolveWaitingResponse(
