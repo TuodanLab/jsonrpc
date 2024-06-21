@@ -118,18 +118,22 @@ export class JsonRpcServer {
     result: any,
     body: RpcRequestInterface,
   ) {
-    logger.error(result);
-    if (result instanceof RpcException === false && body.id) {
+    if (
+      result instanceof RpcException === false &&
+      result instanceof Error === false &&
+      body.id
+    ) {
       return this.wrapRPCResponse(body, result);
     }
     if (result instanceof RpcInvalidRequestException) {
+      logger.error(result);
       return this.wrapRPCError(body, result);
     }
 
     if (body.id === undefined) {
       return null;
     }
-
+    logger.error(result);
     return this.wrapRPCError(body, result);
   }
 
