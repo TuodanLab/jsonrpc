@@ -15,5 +15,5 @@ export enum JSON_RPC_ERROR_CODES {
   // Internal JSON-RPC error.
   INTERNAL_ERROR = -32603,
 
-  UNAUTH_ERROR = -32604,
+  NO_AUTHORIZED = -32604,
 }

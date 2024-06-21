@@ -13,11 +13,11 @@ export const RpcMetadataKey = '__rpc-metadata__';
 export const RpcMethodMetadataKey = '__rpc-method-metadata__';
 
 export const RpcPayload = createParamDecorator(
-  (data: string, ctx: ExecutionContext) => {
+  (field: string, ctx: ExecutionContext) => {
     const req = ctx.switchToHttp().getRequest();
-    if (data) {
+    if (field) {
       const params = req.body.params && req.body.params[0];
-      return params && params[data];
+      return params && params[field];
     }
     return req.body.params && req.body.params[0];
   },
