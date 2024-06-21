@@ -118,6 +118,7 @@ export class JsonRpcServer {
     result: any,
     body: RpcRequestInterface,
   ) {
+    logger.error(result);
     if (result instanceof RpcException === false && body.id) {
       return this.wrapRPCResponse(body, result);
     }
