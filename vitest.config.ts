@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vitest/config';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import AutoImport from 'unplugin-auto-import/vite';
 
 export default defineConfig({
   test: {
@@ -18,5 +18,10 @@ export default defineConfig({
       '@test': './test',
     },
   },
-  plugins: [tsconfigPaths()],
+  plugins: [
+    AutoImport({
+      imports: ['vitest'],
+      dts: true,
+    }),
+  ],
 });

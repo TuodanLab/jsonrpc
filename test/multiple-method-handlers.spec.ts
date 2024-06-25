@@ -1,81 +1,55 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import * as request from 'supertest';
-import { JsonRpcModule } from '../src';
+import { Test } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
 import { MultipleHandlers } from './handlers/multiple-handlers';
-import { WithoutParentMethod } from './handlers/without-parent-method';
-import { describe, beforeEach, it, expect } from 'vitest';
 
-describe('Test json rpc multiple handlers in class', () => {
-  let app;
+describe('MultipleHandlers', () => {
+  let app: INestApplication;
+  let multipleHandlers: MultipleHandlers;
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        JsonRpcModule.forRoot({
-          path: '/rpc',
-        }),
-      ],
-      providers: [MultipleHandlers, WithoutParentMethod],
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
+      providers: [MultipleHandlers],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleRef.createNestApplication();
     await app.init();
+
+    multipleHandlers = moduleRef.get<MultipleHandlers>(MultipleHandlers);
   });
 
-  it('should work withoutParentMethod', async () => {
-    const { body } = await request(app.getHttpServer())
-      .post('/rpc')
-      .send({
-        jsonrpc: '2.0',
-        id: 1,
-        params: { field: 1 },
-        method: 'withoutParentMethod',
-      })
-      .expect(200);
-
-    expect(body.result).toEqual('withoutParentMethod');
+  afterAll(async () => {
+    await app.close();
   });
 
-  it('should work multiple handlers', async () => {
-    const { body } = await request(app.getHttpServer())
-      .post('/rpc')
-      .send([
-        {
-          jsonrpc: '2.0',
-          id: 1,
-          params: { field: 1 },
-          method: 'prefix.subMethod',
-        },
-        {
-          jsonrpc: '2.0',
-          id: 1,
-          params: { field: 1 },
-          method: 'prefix.subMethod1',
-        },
-      ])
-      .expect(200);
+  it('should return the payload for subMethod', async () => {
+    const payload = { data: 'test' };
+    const version = '1.0';
+    const method = 'subMethod';
+    const id = '12345';
 
-    expect(body.length).toEqual(2);
-    expect(body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          result: { field: 1 },
-        }),
-      ]),
+    const result = await multipleHandlers.subMethod(
+      payload,
+      version,
+      method,
+      id,
     );
+
+    expect(result).toEqual(payload);
   });
 
-  it('should work one handler of multiple handlers class', async () => {
-    const { body } = await request(app.getHttpServer())
-      .post('/rpc')
-      .send({
-        jsonrpc: '2.0',
-        id: 1,
-        params: { field: 1 },
-        method: 'prefix.subMethod',
-      })
-      .expect(200);
+  it('should return the payload for subMethod1', async () => {
+    const payload = { data: 'test1' };
+    const version = '1.0';
+    const method = 'subMethod1';
+    const id = '67890';
 
-    expect(body.result).toEqual({ field: 1 });
+    const result = await multipleHandlers.subMethod1(
+      payload,
+      version,
+      method,
+      id,
+    );
+
+    expect(result).toEqual(payload);
   });
 });

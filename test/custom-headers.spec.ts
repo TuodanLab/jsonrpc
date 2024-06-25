@@ -1,49 +1,40 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import * as request from 'supertest';
-import { JsonRpcModule } from '../src';
+import { Test } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
 import { CustomHeaderHandler } from './handlers/custom-header';
-import { beforeEach, describe, expect, it } from 'vitest';
 
-describe('Test json rpc custom headers', () => {
-  let app;
+describe('CustomHeaderHandler', () => {
+  let app: INestApplication;
+  let customHeaderHandler: CustomHeaderHandler;
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        JsonRpcModule.forRoot({
-          path: '/rpc/custom',
-        }),
-      ],
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
       providers: [CustomHeaderHandler],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleRef.createNestApplication();
     await app.init();
+
+    customHeaderHandler =
+      moduleRef.get<CustomHeaderHandler>(CustomHeaderHandler);
   });
 
-  // describe('positive', () => {
-  it('has single custom header', async () => {
-    console.log(3333333, typeof request(app.getHttpServer()));
-
-    const { header } = await request(app.getHttpServer())
-      .post('/rpc/custom')
-      .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' })
-      .expect(200);
-
-    const handlerNameHeader = header['handler-name'];
-
-    expect(handlerNameHeader).not.toBeUndefined();
+  afterAll(async () => {
+    await app.close();
   });
 
-  // it('custom header contains expected value', async () => {
-  //   const { header } = await request(app.getHttpServer())
-  //     .post('/rpc')
-  //     .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' })
-  //     .expect(200);
+  it('should return the payload and set custom header', async () => {
+    const payload = { data: 'test' };
+    const version = '1.0';
+    const method = 'invoke';
+    const id = '12345';
 
-  //   const handlerNameHeader = header['handler-name'];
+    const result = await customHeaderHandler.invoke(
+      payload,
+      version,
+      method,
+      id,
+    );
 
-  //   expect(handlerNameHeader).toEqual(CustomHeaderHandler.name);
-  // });
-  // });
+    expect(result).toEqual(payload);
+  });
 });

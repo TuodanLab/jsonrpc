@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { HelloHandler } from 'src/hello.handler';
-import { AppService } from 'src/app.service';
+import { HelloHandler } from '../src/hello.handler';
+import { AppService } from '../src/app.service';
 
 describe('app service', () => {
   let helloHandler: HelloHandler;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const appService = new AppService();
     helloHandler = new HelloHandler(appService);
   });

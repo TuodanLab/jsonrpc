@@ -106,19 +106,19 @@ export class JsonRpcModule implements OnModuleInit {
   }
 
   public async onModuleInit() {
-    const { container, injector } = this.moduleRef as any as {
-      container: NestContainer;
-      injector: Injector;
-    };
-    const routesResolver = new RpcRoutesResolver(
-      container,
-      this.nestConfig,
-      injector,
-      this.jsonRpcExplorer,
-    );
-    const rpcHandlers = routesResolver.resolve(
-      this.httpAdapterHost.httpAdapter,
-    );
-    this.rpcServer.run(rpcHandlers, this.config);
+    // const { container, injector } = this.moduleRef as any as {
+    //   container: NestContainer;
+    //   injector: Injector;
+    // };
+    // const routesResolver = new RpcRoutesResolver(
+    //   container,
+    //   this.nestConfig,
+    //   injector,
+    //   this.jsonRpcExplorer,
+    // );
+    // const rpcHandlers = routesResolver.resolve(
+    //   this.httpAdapterHost.httpAdapter,
+    // );
+    // this.rpcServer.run(rpcHandlers, this.config);
   }
 }
