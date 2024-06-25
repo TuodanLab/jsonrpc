@@ -5,7 +5,7 @@ export class AppService {
   constructor() {
     Logger.log(`instantiate ${AppService.name} on every request`);
   }
-  getHello(): string {
+  async getHello() {
     return 'Hello World!';
   }
 }

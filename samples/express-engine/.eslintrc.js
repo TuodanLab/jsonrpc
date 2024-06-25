@@ -1,3 +1,5 @@
+const { vitest } = require("vitest");
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -14,7 +16,7 @@ module.exports = {
   root: true,
   env: {
     node: true,
-    jest: true,
+    vitest: true,
   },
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',

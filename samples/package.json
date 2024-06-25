@@ -1,0 +1,17 @@
+{
+    "scripts": {
+        "i:auth": "cd ./auth && pnpm install",
+        "i:express":"cd ./express-engine && pnpm install",
+        "i:fastify":"cd ./fastify-engine && pnpm install",
+        "i:logging":"cd ./logging && pnpm install",
+        "i:multiple":"cd ./multiple-handlers-in-class && pnpm install",
+        "i:request":"cd ./request-scoped && pnpm install",
+
+        "test:auth":"cd ./auth && pnpm test",
+        "test:express":"cd ./express-engine && pnpm test",
+        "test:fastify":"cd ./fastify-engine && pnpm test",
+        "test:logging":"cd ./logging && pnpm test",
+        "test:multiple":"cd ./multiple-handlers-in-class && pnpm test",
+        "test:request":"cd ./request-scoped && pnpm test"
+    }
+}

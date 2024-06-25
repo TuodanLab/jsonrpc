@@ -1,11 +1,11 @@
-import { RpcHandler, IRpcHandler } from '@tuodan/jsonrpc';
+import { IRpcHandler, RpcPackage } from '@tuodan/jsonrpc';
 import { UseGuards } from '@nestjs/common';
 import { RPCGuard } from './rpc.guard';
 
-@RpcPackage({ method: 'secure' })
+@RpcPackage({ namespace: 'secure' })
 export class SecureHandler implements IRpcHandler<any> {
   @UseGuards(RPCGuard)
-  public invoke() {
+  async invoke() {
     return 'secure';
   }
 }

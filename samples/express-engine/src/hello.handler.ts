@@ -1,11 +1,11 @@
 import { AppService } from './app.service';
-import { IRpcHandler, RpcHandler } from '@tuodan/jsonrpc';
+import { IRpcHandler, RpcPackage } from '@tuodan/jsonrpc';
 
-@RpcPackage({ method: 'hello' })
+@RpcPackage({ namespace: 'hello' })
 export class HelloHandler implements IRpcHandler<any> {
   constructor(private readonly appService: AppService) {}
 
-  public invoke(): string {
-    return this.appService.getHello();
+  async invoke() {
+    return await this.appService.getHello();
   }
 }

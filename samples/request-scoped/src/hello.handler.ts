@@ -1,14 +1,14 @@
 import { AppService } from './app.service';
-import { IRpcHandler, RpcHandler } from '@tuodan/jsonrpc';
+import { IRpcHandler, RpcPackage } from '@tuodan/jsonrpc';
 import { Logger } from '@nestjs/common';
 
-@RpcPackage({ method: 'hello' })
+@RpcPackage({ namespace: 'hello' })
 export class HelloHandler implements IRpcHandler<any> {
   constructor(private readonly appService: AppService) {
     Logger.log(`instantiate ${HelloHandler.name} on every request`);
   }
 
-  public invoke(): string {
-    return this.appService.getHello();
+  async invoke() {
+    return await this.appService.getHello();
   }
 }

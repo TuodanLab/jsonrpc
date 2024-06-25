@@ -1,16 +1,15 @@
 import {
   IRpcHandler,
-  RpcHandler,
+  Rpc,
   RpcId,
   RpcMethod,
+  RpcPackage,
   RpcPayload,
   RpcVersion,
 } from '../../src';
 import { Header } from '@nestjs/common';
 
-@RpcPackage({
-  method: 'test',
-})
+@RpcPackage({ namespace: 'test' })
 export class CustomHeaderHandler implements IRpcHandler<any> {
   @Header('Handler-Name', CustomHeaderHandler.name)
   public async invoke(

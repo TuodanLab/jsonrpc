@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { JsonRpcModule } from '../src';
 import { TestHandler } from './handlers/test-handler';
-
+import { describe, beforeEach, it, expect } from 'vitest';
 
 describe('Test json rpc specification', () => {
   let app;
@@ -24,9 +24,11 @@ describe('Test json rpc specification', () => {
   describe('positive', () => {
     it('should return correct json rpc structure', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' })
-          .expect(200);
+        .post('/rpc')
+        .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' })
+        .expect(200);
+
+      console.log(111111, body);
 
       const keys = Object.keys(body);
       expect(keys.sort()).toEqual(['id', 'jsonrpc', 'result'].sort());
@@ -34,52 +36,50 @@ describe('Test json rpc specification', () => {
 
     it('notification', async () => {
       await request(app.getHttpServer())
-          .post('/rpc')
-          .send({ jsonrpc: '2.0', params: { field: 1 }, method: 'test' })
-          .expect(200)
-          .expect('');
+        .post('/rpc')
+        .send({ jsonrpc: '2.0', params: { field: 1 }, method: 'test' })
+        .expect(200)
+        .expect('');
     });
 
     it('should return id', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' })
-          .expect(200);
+        .post('/rpc')
+        .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' })
+        .expect(200);
 
       expect(body.id).toEqual(1);
     });
 
     it('should return result', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' })
-          .expect(200);
+        .post('/rpc')
+        .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' })
+        .expect(200);
 
       expect(body.result).toEqual({ field: 1 });
     });
 
     it('should skip notification response in batch request', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send([
-            { jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' },
-            { jsonrpc: '2.0', params: { field: 1 }, method: 'test' },
-          ])
-          .expect(200);
+        .post('/rpc')
+        .send([
+          { jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'test' },
+          { jsonrpc: '2.0', params: { field: 1 }, method: 'test' },
+        ])
+        .expect(200);
 
-      expect(body).toEqual([
-        { jsonrpc: '2.0', id: 1, result: { field: 1 } },
-      ]);
+      expect(body).toEqual([{ jsonrpc: '2.0', id: 1, result: { field: 1 } }]);
     });
 
     it('should return empty response in batch request when all notifications', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send([
-            { jsonrpc: '2.0', params: { field: 1 }, method: 'test' },
-            { jsonrpc: '2.0', params: { field: 1 }, method: 'test' },
-          ])
-          .expect(200);
+        .post('/rpc')
+        .send([
+          { jsonrpc: '2.0', params: { field: 1 }, method: 'test' },
+          { jsonrpc: '2.0', params: { field: 1 }, method: 'test' },
+        ])
+        .expect(200);
 
       expect(body).toEqual('');
     });
@@ -88,9 +88,14 @@ describe('Test json rpc specification', () => {
   describe('negative', () => {
     it('should return correct error structure', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'some-method' })
-          .expect(200);
+        .post('/rpc')
+        .send({
+          jsonrpc: '2.0',
+          id: 1,
+          params: { field: 1 },
+          method: 'some-method',
+        })
+        .expect(200);
 
       const keys = Object.keys(body);
       expect(keys.sort()).toEqual(['jsonrpc', 'error', 'id'].sort());
@@ -98,51 +103,56 @@ describe('Test json rpc specification', () => {
 
     it('should return invalid request', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send({ id: 1, params: { field: 1 }, method: 'test' })
-          .expect(200);
+        .post('/rpc')
+        .send({ id: 1, params: { field: 1 }, method: 'test' })
+        .expect(200);
 
       expect(body).toEqual({
         jsonrpc: '2.0',
-        error: {code: -32600, message: 'Invalid request'},
+        error: { code: -32600, message: 'Invalid request' },
         id: 1,
       });
     });
 
     it('should return non-existent method exception', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send({ jsonrpc: '2.0', id: 1, params: { field: 1 }, method: 'some-method' })
-          .expect(200);
+        .post('/rpc')
+        .send({
+          jsonrpc: '2.0',
+          id: 1,
+          params: { field: 1 },
+          method: 'some-method',
+        })
+        .expect(200);
       expect(body).toEqual({
         jsonrpc: '2.0',
-        error: {code: -32601, message: 'Method not found'},
+        error: { code: -32601, message: 'Method not found' },
         id: 1,
       });
     });
 
     it('should return invalid request when empty batch', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send([])
-          .expect(200);
+        .post('/rpc')
+        .send([])
+        .expect(200);
       expect(body).toEqual({
         jsonrpc: '2.0',
-        error: {code: -32600, message: 'Invalid request'},
+        error: { code: -32600, message: 'Invalid request' },
         id: null,
       });
     });
 
     it('should return invalid request when batch invalid', async () => {
       const { body } = await request(app.getHttpServer())
-          .post('/rpc')
-          .send([{}, 1, 1])
-          .expect(200);
+        .post('/rpc')
+        .send([{}, 1, 1])
+        .expect(200);
 
       for (const item of body) {
         expect(item).toEqual({
           jsonrpc: '2.0',
-          error: {code: -32600, message: 'Invalid request'},
+          error: { code: -32600, message: 'Invalid request' },
           id: null,
         });
       }

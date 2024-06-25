@@ -1,17 +1,17 @@
 import { AppService } from './app.service';
-import { RpcMethodHandler, RpcHandler } from '@tuodan/jsonrpc';
+import { Rpc, RpcPackage } from '@tuodan/jsonrpc';
 
-@RpcPackage({ method: 'prefix' })
+@RpcPackage({ namespace: 'prefix' })
 export class HelloHandler {
   constructor(private readonly appService: AppService) {}
 
   @Rpc('add')
-  public add(): string {
-    return this.appService.getHello();
+  async add() {
+    return await this.appService.getHello();
   }
 
   @Rpc('delete')
-  public delete(): string {
-    return this.appService.getHello();
+  async delete() {
+    return await this.appService.getHello();
   }
 }

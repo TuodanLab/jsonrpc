@@ -10,7 +10,7 @@ import { JwtStrategy } from './jwt.strategy';
 @Module({
   imports: [
     JsonRpcModule.forRoot({
-      path: '/rpc',
+      path: '/rpc/auth',
     }),
     PassportModule.register({
       defaultStrategy: 'jwt',
@@ -24,7 +24,6 @@ import { JwtStrategy } from './jwt.strategy';
       },
     }),
   ],
-  controllers: [],
   providers: [AppService, SignInHandler, SecureHandler, JwtStrategy],
 })
 export class AppModule {}

@@ -1,14 +1,14 @@
 import {
   IRpcHandler,
-  RpcHandler,
   RpcId,
   RpcMethod,
+  RpcPackage,
   RpcPayload,
   RpcVersion,
 } from '../../src';
 
 @RpcPackage({
-  method: 'test',
+  namespace: 'test',
 })
 export class TestHandler implements IRpcHandler<any> {
   public async invoke(

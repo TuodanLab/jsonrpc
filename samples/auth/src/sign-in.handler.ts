@@ -1,20 +1,21 @@
 import {
-  RpcHandler,
   IRpcHandler,
   RpcPayload,
   RpcVersion,
   RpcId,
   RpcMethod,
+  RpcPackage,
+  Rpc,
 } from '@tuodan/jsonrpc';
-import { JwtService } from '@nestjs/jwt';
 import { users } from './users';
 import { NotFoundException } from '@nestjs/common';
 
-@RpcPackage({ method: 'signin' })
+@RpcPackage({ namespace: 'signin' })
 export class SignInHandler implements IRpcHandler<any> {
-  constructor(private jwt: JwtService) {}
+  constructor() {}
 
-  public invoke(
+  @Rpc('invoke')
+  async invoke(
     @RpcPayload() payload: any,
     @RpcVersion() version: string,
     @RpcId() id: number | string,
@@ -32,8 +33,9 @@ export class SignInHandler implements IRpcHandler<any> {
       user: {
         id: user.id,
         name: user.name,
+        version,
+        method,
       },
-      token: this.jwt.sign({ id: user.id }),
     };
   }
 }

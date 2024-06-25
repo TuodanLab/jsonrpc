@@ -1,8 +1,8 @@
 import {
-  RpcHandler,
+  Rpc,
   RpcId,
   RpcMethod,
-  RpcMethodHandler,
+  RpcPackage,
   RpcPayload,
   RpcVersion,
 } from '../../src';
